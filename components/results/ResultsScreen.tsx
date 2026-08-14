@@ -1,0 +1,10 @@
+import { AnswerRecord, Category } from "../game/types";
+
+export function ResultsScreen({ playerName, category, records, totalTime, onPlayAgain, onHome }: { playerName: string; category: Category; records: AnswerRecord[]; totalTime: number; onPlayAgain: () => void; onHome: () => void }) {
+  const correct = records.filter((item) => item.status === "correct").length;
+  const incorrect = records.filter((item) => item.status === "incorrect").length;
+  const unanswered = records.filter((item) => item.status === "unanswered").length;
+  const max = records.length * 10; const score = correct * 10; const accuracy = records.length ? Math.round((correct / records.length) * 100) : 0;
+  const message = accuracy >= 90 ? "Outstanding work. Your mind is on fire." : accuracy >= 70 ? "Great job. You&apos;re building real momentum." : accuracy >= 50 ? "Good effort. Every round makes you sharper." : "Keep learning — the next round is yours.";
+  return <section className="results-page"><span className="brand"><i>✦</i> nexora</span><div className="confetti">✦ · ✧ · ✦ · ✧</div><p className="eyebrow">ROUND COMPLETE</p><h1>Nice work, <em>{playerName}</em>!</h1><p className="result-message" dangerouslySetInnerHTML={{ __html: message }} /><div className="score-orb"><span>FINAL SCORE</span><b>{score}</b><small>/ {max} pts</small></div><div className="result-stats"><div><b>{correct}</b><span>Correct</span></div><div><b>{incorrect}</b><span>Incorrect</span></div><div><b>{unanswered}</b><span>Unanswered</span></div><div><b>{accuracy}%</b><span>Accuracy</span></div></div><div className="round-meta"><span className={`subject-badge ${category.color}`}>{category.icon} {category.name}</span><span>◷ {Math.floor(totalTime / 60)}:{String(totalTime % 60).padStart(2, "0")} total time</span></div><div className="result-actions"><button className="primary-button" onClick={onPlayAgain}>Play again <span>→</span></button><button className="ghost-button" onClick={onHome}>Home</button></div></section>;
+}
