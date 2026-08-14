@@ -1,20 +1,18 @@
 export type Difficulty = "easy" | "medium" | "hard" | "expert";
-export type CategoryId = "mathematics" | "coding" | "computer-science";
+export type CategoryId = string;
 
 export interface Category {
   id: CategoryId;
   name: string;
-  description: string;
-  icon: string;
-  color: string;
+  description?: string;
+  icon?: string;
+  color?: string;
 }
 
 export interface Question {
   id: string;
-  category: CategoryId;
+  categoryId: CategoryId;
   question: string;
-  answer: string;
-  acceptedAnswers?: string[];
   explanation?: string;
   difficulty: Difficulty;
 }
@@ -24,4 +22,6 @@ export interface AnswerRecord {
   answer: string;
   status: "correct" | "incorrect" | "unanswered";
   elapsedSeconds: number;
+  correctAnswer?: string;
+  explanation?: string;
 }
