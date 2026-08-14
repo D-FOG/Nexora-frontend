@@ -7,7 +7,6 @@ node_modules/
 tsconfig.tsbuildinfo
 
 # Local notes and operating-system files
-idea.md
 .DS_Store
 
 # Debug logs
