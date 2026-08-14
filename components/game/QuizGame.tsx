@@ -31,13 +31,13 @@ export function QuizGame() {
   }, [index, screen, timeLimit]);
 
   useEffect(() => {
-    if (screen !== "quiz" || !current) return;
+    if (screen !== "quiz" || !current || records[index]) return;
     if (remaining <= 0) { submitAnswer(""); return; }
     const timer = window.setTimeout(() => setRemaining((value) => value - 1), 1000);
     return () => window.clearTimeout(timer);
   // submitAnswer deliberately changes with quiz state; the timer is reset for each index.
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [remaining, screen, current]);
+  }, [remaining, screen, current, records, index]);
 
   function startQuiz(count: number) {
     const pool = questions.filter((question) => question.category === categoryId);
@@ -46,7 +46,7 @@ export function QuizGame() {
   }
 
   function submitAnswer(answer: string) {
-    if (!current) return;
+    if (!current || records[index]) return;
     const status = !answer.trim() ? "unanswered" : answersMatch(answer, current) ? "correct" : "incorrect";
     const record = { question: current, answer, status, elapsedSeconds: timeLimit - remaining } satisfies AnswerRecord;
     setRecords((items) => [...items, record]);

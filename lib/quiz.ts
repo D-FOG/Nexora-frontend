@@ -11,5 +11,10 @@ export function answersMatch(answer: string, question: Question) {
 }
 
 export function chooseQuestions(source: Question[], count: number) {
-  return [...source].sort(() => Math.random() - 0.5).slice(0, count);
+  const shuffled = [...source];
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const randomIndex = Math.floor(Math.random() * (index + 1));
+    [shuffled[index], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[index]];
+  }
+  return shuffled.slice(0, count);
 }
