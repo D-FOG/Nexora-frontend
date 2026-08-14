@@ -10,3 +10,4 @@ export function startQuiz(input: { playerName: string; categoryId: string; quest
 export function answerQuiz(sessionId: string, questionId: string, answer: string) { return request<AnswerResponse>(`/quiz/${sessionId}/answer`, { method: "POST", body: JSON.stringify({ questionId, answer, clientSubmittedAt: new Date().toISOString() }) }); }
 export function advanceQuiz(sessionId: string) { return request<AdvanceResponse>(`/quiz/${sessionId}/next`, { method: "POST" }); }
 export function completeQuiz(sessionId: string) { return request<CompleteResponse>(`/quiz/${sessionId}/complete`, { method: "POST", body: JSON.stringify({ clientCompletedAt: new Date().toISOString() }) }); }
+export function quitQuiz(sessionId: string) { return request<CompleteResponse>(`/quiz/${sessionId}/quit`, { method: "POST" }); }
