@@ -6,7 +6,7 @@ import { SetupScreen } from "../setup/SetupScreen";
 import { QuizScreen } from "./QuizScreen";
 import { ResultsScreen } from "../results/ResultsScreen";
 type Screen = "landing" | "setup" | "quiz" | "results";
-const colorFor = (id: string) => id === "mathematics" ? "violet" : id === "coding" ? "cyan" : "orange";
+const colorFor = (id: string) => ["violet", "cyan", "orange"][Array.from(id).reduce((total, character) => total + character.charCodeAt(0), 0) % 3];
 export function QuizGame() {
   const [screen, setScreen] = useState<Screen>("landing"), [playerName, setPlayerName] = useState(""), [categoryId, setCategoryId] = useState<CategoryId>("mathematics"), [timeLimit, setTimeLimit] = useState(30), [categories, setCategories] = useState<Array<Category & { questionCount: number }>>([]), [activeQuestions, setActiveQuestions] = useState<Question[]>([]), [index, setIndex] = useState(0), [records, setRecords] = useState<AnswerRecord[]>([]), [remaining, setRemaining] = useState(30), [deadline, setDeadline] = useState(0), [startedAt, setStartedAt] = useState(0), [sessionId, setSessionId] = useState(""), [apiError, setApiError] = useState(""), [loading, setLoading] = useState(false), [result, setResult] = useState<CompleteResponse>();
   useEffect(() => { getCategories().then((items) => { const decorated = items.map((item) => ({ ...item, color: colorFor(item.id) })); setCategories(decorated); if (decorated.length && !decorated.some((item) => item.id === categoryId)) setCategoryId(decorated[0].id); }).catch((error: Error) => setApiError(error.message)); }, []);
