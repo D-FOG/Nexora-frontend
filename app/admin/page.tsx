@@ -55,7 +55,7 @@ export default function AdminPage() {
         <input id="admin-password" className="name-input" type="password" value={password} onChange={(event) => setPassword(event.target.value)} autoComplete="current-password" required />
         <label className="field-label" htmlFor="question-json">JSON PAYLOAD</label>
         <textarea id="question-json" value={value} onChange={(event) => setValue(event.target.value)} spellCheck={false} aria-describedby="json-help" />
-        <p id="json-help" className="admin-help">Use a seeded category ID: <code>mathematics</code>, <code>coding</code>, or <code>computer-science</code>. Difficulty is <code>easy</code>, <code>medium</code>, <code>hard</code>, or <code>expert</code>. <code>acceptedAnswers</code>, <code>explanation</code>, and <code>active</code> are optional.</p>
+        <p id="json-help" className="admin-help">Use any lowercase hyphenated category ID, such as <code>brain-teasers</code>. A new ID automatically creates that category; reuse the same ID to add more questions to it. Difficulty is <code>easy</code>, <code>medium</code>, <code>hard</code>, or <code>expert</code>. <code>acceptedAnswers</code>, <code>explanation</code>, and <code>active</code> are optional.</p>
         <button className="primary-button" disabled={saving || !password} type="submit">{saving ? "Saving…" : "Add questions"}<span>→</span></button>
       </form>
       {message && <p className={`admin-message ${created.length ? "success" : "error"}`}>{message}</p>}
